@@ -69,8 +69,9 @@ def select_list():
             selected_name = list_names[choice]
             return selected_name, all_lists[selected_name]
         else:
-            print("Invalid selection. Please try again.")
+            invalid()
             continue
+        
 
 def get_student_data():
     """Get student information from user"""
@@ -114,17 +115,21 @@ def continue_choice():
         if choice in ['Y', 'N']:
             return choice
         invalid()
+
+def get_choice():
+    return input('Please Select a Menu:')
+
 while True:
     for h in homepage:
         print(h)
-    choice_h = input ('Please Select a Menu:')
+    choice_h = get_choice()
 
 ##READ
     if choice_h == '1':
        while True:
             for r in read:
                 print (r)
-            choice_r = input('Please Select a Menu:')
+            choice_r = get_choice()
             if choice_r == '1':
                 list_name, students = select_list()
                 if list_name:
@@ -157,14 +162,14 @@ Score: {student['score']}""")
             elif choice_r == '3':
                 break
             else:
-                print ('Invalid Choice. Try Again')
+                invalid()
      
 ##ADD
     elif choice_h == '2':
         while True:
             for a in add:
                 print (a)
-            choice_a = input('Please Select a Menu:')
+            choice_a = get_choice()
             if choice_a == '1':
                 list_name, students = select_list()
                 if list_name:
@@ -179,14 +184,14 @@ Score: {student['score']}""")
             elif choice_a == '2':
                 break
             else:
-                print ('Invalid Choice. Try Again')
+                invalid()
  
 ##EDIT
     elif choice_h == '3':
         while True:
             for e in edit:
                 print (e)
-            choice_e = input('Please Select a Menu:')
+            choice_e = get_choice()
             if choice_e == '1':
                 list_name, students = select_list()
                 if list_name:
@@ -225,14 +230,14 @@ Score: {student['score']}""")
             elif choice_e == '2':
                 break
             else:
-                print ('Invalid Choice. Try Again')
+                invalid()
         
 ##DELETE
     elif choice_h == '4':   
         while True:
             for d in delete:
                 print (d)
-            choice_d = input('Please Select a Menu:')
+            choice_d = get_choice()
             if choice_d == '1':
                     list_name, students = select_list()
                     while True:
@@ -258,10 +263,10 @@ Score: {student['score']}""")
             elif choice_d == '2':
                 break
             else:
-                print ('Invalid Choice. Try Again')
+                invalid()
 ##EXIT
     elif choice_h == '5':
         break
 ##ELSE
     else:
-        print ('Invalid Choice. Try Again')
+        invalid()
