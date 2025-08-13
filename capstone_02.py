@@ -41,11 +41,6 @@ delete = ['\tDELETE SOCRE LIST',
 ]
 def invalid():
     print ('Inavlid Choice. Try Again')
-
-def show_student_table(students, list_name):
-    if not students:
-        print("No students in the list.")
-        return
     
 def show_all_lists():
     if not all_lists:
@@ -65,21 +60,21 @@ def select_list():
         if not show_all_lists():
             return None, None
         
-        try:
-            choice = int(input("Select list number: ")) - 1
-            list_names = list(all_lists.keys())
-            if 0 <= choice < len(list_names):
-                if len(all_lists[list_names[choice]]) == 0:
-                    print ('No student in the list.')
-                    continue
-                selected_name = list_names[choice]
-                return selected_name, all_lists[selected_name]
-            else:
-                print("Invalid selection. Please try again.")
+        # try:
+        choice = int(input("Select list number: ")) - 1
+        list_names = list(all_lists.keys())
+        if 0 <= choice < len(list_names):
+            if len(all_lists[list_names[choice]]) == 0:
+                print ('No student in the list.')
                 continue
-        except:
-            print("Please enter a valid number.")
+            selected_name = list_names[choice]
+            return selected_name, all_lists[selected_name]
+        else:
+            print("Invalid selection. Please try again.")
             continue
+        # except:
+        #     print("Please enter a valid number.")
+        #     continue
 
 def get_student_data():
     """Get student information from user"""
@@ -181,8 +176,6 @@ Score: {student['score']}""")
                         print(f"Adding to: {list_name}")
                         student = get_student_data()
                         all_lists[list_name].append(student)
-                        
-                        show_student_table(all_lists[list_name], list_name)
                         print("Student added!")
                         
                         if continue_choice() == 'N':
@@ -201,7 +194,6 @@ Score: {student['score']}""")
             if choice_e == '1':
                 list_name, students = select_list()
                 if list_name:
-                    show_student_table(students, list_name)
                     search_id = input('Enter Student ID to edit: ')
                     index, student = find_student(students, search_id)
                     
@@ -230,7 +222,6 @@ Score: {student['score']}""")
                                 except:
                                     print("Enter valid number")
                         print("Updated!")
-                        show_student_table(all_lists[list_name], list_name)
                         print(f"List '{list_name}' saved!")
                         break
                     else:
@@ -247,31 +238,27 @@ Score: {student['score']}""")
                 print (d)
             choice_d = input('Please Select a Menu:')
             if choice_d == '1':
-                if choice_d == '1':
                     list_name, students = select_list()
-                if list_name:
-                    show_student_table(students, list_name)
-                    search_id = input('Student ID to delete: ')
-                    index, student = find_student(students, search_id)
+                    while True:
+                        if list_name:
+                            search_id = input('Student ID to delete: ')
+                            index, student = find_student(students, search_id)
                     
-                    if student:
-                        while True:
-                            confirm = input(f"Delete {student['name']}? (Y/N): ").upper()
-                            if confirm == 'Y':
-                                all_lists[list_name].pop(index)
-                                print("Student deleted!")
-                                break
-                            elif confirm == 'N':
-                                print ('Delete Canceled')
-                                break
+                            if student:
+                                while True:
+                                    confirm = input(f"Delete {student['name']}? (Y/N): ").upper()
+                                    if confirm == 'Y':
+                                        all_lists[list_name].pop(index)
+                                        print("Student deleted!")
+                                        break
+                                    elif confirm == 'N':
+                                        print ('Delete Canceled')
+                                        break
+                                    else:
+                                        print ('Please choose only Y or N')
+                                break   
                             else:
-                                print ('Please choose only Y or N')
-                                
-                        
-                    if all_lists[list_name]:
-                                show_student_table(all_lists[list_name], list_name)
-                    else:
-                        print("Student not found.")
+                                print('Student not found')
             elif choice_d == '2':
                 break
             else:
