@@ -60,7 +60,6 @@ def select_list():
         if not show_all_lists():
             return None, None
         
-        # try:
         choice = int(input("Select list number: ")) - 1
         list_names = list(all_lists.keys())
         if 0 <= choice < len(list_names):
@@ -72,9 +71,6 @@ def select_list():
         else:
             print("Invalid selection. Please try again.")
             continue
-        # except:
-        #     print("Please enter a valid number.")
-        #     continue
 
 def get_student_data():
     """Get student information from user"""
